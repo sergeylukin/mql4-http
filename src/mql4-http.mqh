@@ -24,7 +24,7 @@ int InternetOpenUrlW(
     string     sUrl, 
     string     sHeaders="",
     int     lHeadersLength=0,
-    int     lFlags=0,
+    uint     lFlags=0,
     int     lContext=0 
 );
 int InternetReadFile(
@@ -37,6 +37,10 @@ int InternetCloseHandle(
     int     hInet
 );       
 #import
+
+#define INTERNET_FLAG_RELOAD            0x80000000
+#define INTERNET_FLAG_NO_CACHE_WRITE    0x04000000
+#define INTERNET_FLAG_PRAGMA_NOCACHE    0x00000100
 
 int hSession_IEType;
 int hSession_Direct;
@@ -70,7 +74,10 @@ int hSession(bool Direct)
 string httpGET(string strUrl)
 {
    int handler = hSession(false);
-   int response = InternetOpenUrlW(handler, strUrl);
+   int response = InternetOpenUrlW(handler, strUrl, NULL, 0,
+        INTERNET_FLAG_NO_CACHE_WRITE |
+        INTERNET_FLAG_PRAGMA_NOCACHE |
+        INTERNET_FLAG_RELOAD, 0);
    if (response == 0) 
         return(false);
         
