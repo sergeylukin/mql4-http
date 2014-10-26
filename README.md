@@ -26,6 +26,8 @@ int start () {
 }
 ```
 
+You can also [watch this video demonstration](http://screencast.com/t/UVMAlgCjJ2)
+
 Credits
 -------
 
