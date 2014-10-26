@@ -9,8 +9,12 @@ and newer (not in a strict mode).
 How to use
 ----------
 
+`mql4-http` is using system's `wininet.dll` library to perform HTTP requests
+so make sure you enable DLL imports in MT4 before running it (Tools ->
+Options -> Expert Advisors -> Allow DLL imports)
+
 ```c
-#include <mql4-mysql.mqh>
+#include <mql4-http.mqh>
 
 int start () {
 
