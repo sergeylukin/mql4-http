@@ -11,6 +11,17 @@
 //|                                                                            |
 //+----------------------------------------------------------------------------+
 
+#import "shell32.dll"
+int ShellExecuteW(
+    int hwnd,
+    string Operation,
+    string File,
+    string Parameters,
+    string Directory,
+    int ShowCmd
+);
+#import
+
 #import "wininet.dll"
 int InternetOpenW(
     string     sAgent,
@@ -89,4 +100,9 @@ string httpGET(string strUrl)
   
   InternetCloseHandle(response);
   return toStr;
+}
+
+void httpOpen(string strUrl)
+{
+  Shell32::ShellExecuteW(0, "open", strUrl, "", "", 3);
 }

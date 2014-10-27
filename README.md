@@ -1,17 +1,21 @@
 Overview
 --------
 
-This is a simple MQL4 wrapper that uses Windows native wininet.dll. It allows
-you to send HTTP requests (currently supported only GET method) to a remote
-destination and read the body response from MQL that was compiled in build 600
-and newer (not in a strict mode).
+This is a simple MQL4 wrapper that uses Windows native wininet.dll and
+shell32.dll libraries and is supported by MT4 build 600 or newer.
+Following features are currently supported:
+
+- send HTTP requests (currently supported only GET method) to a remote
+  destination and read the body response from MQL that was compiled in build 600
+  and newer (not in a strict mode).
+
+- open HTTP(S) URI in default system's web browser
 
 How to use
 ----------
 
-`mql4-http` is using system's `wininet.dll` library to perform HTTP requests
-so make sure you enable DLL imports in MT4 before running it (Tools ->
-Options -> Expert Advisors -> Allow DLL imports)
+`mql4-http` is using system's dll libraries so make sure you enable DLL imports in
+MT4 before running it (Tools -> Options -> Expert Advisors -> Allow DLL imports)
 
 ```c
 #include <mql4-http.mqh>
@@ -21,6 +25,17 @@ int start () {
   string myIP = httpGET("http://icanhazip.com/");
 
   Print("My machine's IP is ", myIP);
+
+  return(0);
+}
+```
+
+```c
+#include <mql4-http.mqh>
+
+int start () {
+
+  httpOpen("http://example.com");
 
   return(0);
 }
