@@ -30,6 +30,12 @@ int InternetOpenW(
     string     sProxyBypass="",
     int     lFlags=0
 );
+int InternetSetOptionW(
+    int        hInternet,
+    int        dwOption,
+    int   &    lpBuffer[],
+    int        dwBufferLength
+);
 int InternetOpenUrlW(
     int     hInternetSession,
     string     sUrl, 
@@ -52,6 +58,7 @@ int InternetCloseHandle(
 #define INTERNET_FLAG_RELOAD            0x80000000
 #define INTERNET_FLAG_NO_CACHE_WRITE    0x04000000
 #define INTERNET_FLAG_PRAGMA_NOCACHE    0x00000100
+#define INTERNET_OPTION_CONNECT_TIMEOUT 2
 
 int hSession_IEType;
 int hSession_Direct;
@@ -82,9 +89,19 @@ int hSession(bool Direct)
     }
 }
 
-string httpGET(string strUrl)
+string httpGET(string strUrl, string timeoutInSeconds = "")
 {
    int handler = hSession(false);
+   if (timeoutInSeconds != "")
+   {
+       int timeout=StrToInteger(timeoutInSeconds) * 1000;
+       int option[] = {0};
+       option[0] = timeout;
+       InternetSetOptionW(handler,
+                          INTERNET_OPTION_CONNECT_TIMEOUT,
+                          option, 4);
+   }
+
    int response = InternetOpenUrlW(handler, strUrl, NULL, 0,
         INTERNET_FLAG_NO_CACHE_WRITE |
         INTERNET_FLAG_PRAGMA_NOCACHE |

@@ -1,5 +1,4 @@
-Overview
---------
+## Overview
 
 This is a simple MQL4 wrapper that uses Windows native wininet.dll and
 shell32.dll libraries and is supported by MT4 build 600 or newer.
@@ -11,8 +10,7 @@ Following features are currently supported:
 
 - open HTTP(S) URI in default system's web browser
 
-How to use
-----------
+## How to use
 
 `mql4-http` is using system's dll libraries so make sure you enable DLL imports in
 MT4 before running it (Tools -> Options -> Expert Advisors -> Allow DLL imports)
@@ -25,6 +23,19 @@ int start () {
   string myIP = httpGET("http://icanhazip.com/");
 
   Print("My machine's IP is ", myIP);
+
+  return(0);
+}
+```
+
+In order to set timeout, use second argument (only "`n`s" format is supported):
+
+```c
+#include <mql4-http.mqh>
+
+int start () {
+
+  httpGET("http://example.com/long-running-task.php", "60s");
 
   return(0);
 }
@@ -43,8 +54,7 @@ int start () {
 
 You can also [watch this video demonstration](http://screencast.com/t/UVMAlgCjJ2)
 
-Credits
--------
+## Credits
 
 This library was based on following great resources:
 
@@ -52,8 +62,7 @@ This library was based on following great resources:
 
 - EasyXML parser: http://www.mql5.com/code/1998
 
-License
--------
+## License
 
 This is free and unencumbered software released into the public domain.
 
